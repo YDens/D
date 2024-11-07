@@ -13,18 +13,14 @@ int main(int argc, char* argv[]) {
 		Argv[i] = new char[4];
 	}
 	int q = 0, w = 0;
-	int z = 0;
-	while(z != argc) {
-		
-		if (*argv[z] == '.') {
+	for (char s : argv[1]) {
+		if (s == '.') {
 			q += 1;
 			w = 0;
-
 		} else {
-			Argv[q][w] = *argv[z];
+			Argv[q][w] = s;
 			w += 1;
 		}
-		z += 1;
 	}
 
 	if (48 <= Argv[0][0] && Argv[0][0] <= 57 && 48 <= Argv[0][1] && Argv[0][1] <= 57) {
