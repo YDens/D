@@ -1,67 +1,86 @@
 #include <iostream>
 
 int main(int argc, char* argv[]) {
-	int Day, Day1;
-	int Month, Month1;
-	int Year, Year1;
-	int a, b, c, d, e, m;
+	int Day;
+	int Day1;
+	int Month;
+	int Month1;
+	int Year;
+	int Year1;
+	int a;
+	int b;
+	int c;
+	int d;
+	int e;
+	int m;
 	int y;
 	
-
-	char** Argv = new char*[3];
+	char** date = new char*[3];
 	for (int i = 0; i < 3; ++i) {
-		Argv[i] = new char[4];
+		date[i] = new char[4];
 	}
-	int q = 0, w = 0;
-	for (char s : argv[1]) {
-		if (s == '.') {
+	int q = 0;
+	int w = 0;
+	int z = 0;
+	while (z!=10) {
+
+		if (argv[1][z] == '.') {
 			q += 1;
 			w = 0;
 		} else {
-			Argv[q][w] = s;
+			date[q][w] = argv[1][z];
 			w += 1;
 		}
+		z += 1;
 	}
 
-	if (48 <= Argv[0][0] && Argv[0][0] <= 57 && 48 <= Argv[0][1] && Argv[0][1] <= 57) {
-		Day = (Argv[0][0] - '0') * 10 + Argv[0][1] - '0';
+	if (48 <= date[0][0] && date[0][0] <= 57 && 48 <= date[0][1] && date[0][1] <= 57) {
+		Day = (date[0][0] - '0') * 10 + date[0][1] - '0';
 	}
-	else if (48 <= Argv[0][0] && Argv[0][0] <= 57 && (48 > Argv[0][1] || Argv[0][1] > 57)) {
-		Day = (Argv[0][0] - '0') ;
+	else if (48 <= date[0][0] && date[0][0] <= 57 && (48 > date[0][1] || date[0][1] > 57)) {
+		Day = (date[0][0] - '0') ;
 	} else {
 		std::cout << "Unknown";
-		return 2;
+		return 0;
 	}
-
-	if (Argv[1][0] == '0') {
-		if (49 <= Argv[1][1] && Argv[1][1] <= 57) {
-			Month = Argv[1][1] - '0';
+	
+	if (date[1][0] == '0') {
+		if (49 <= date[1][1] && date[1][1] <= 57) {
+			Month = date[1][1] - '0';
 		} else {
 			std::cout << "Unknown";
-			return 2;
+			return 0;
 		}
-	} else if (Argv[1][0] == '1') {
-		if (48 <= Argv[1][1] && Argv[1][1] <= 50) {
-			Month = (Argv[1][0] - '0') * 10 + Argv[1][1] - '0';
+	} else if (date[1][0] == '1') {
+		if (48 <= date[1][1] && date[1][1] <= 50) {
+			Month = (date[1][0] - '0') * 10 + date[1][1] - '0';
+		}
+		else if (48 > date[1][1] || date[1][1] > 57) {
+			Month = (date[1][0] - '0');
 		} else {
 			std::cout << "Unknown";
-			return 2;
+			return 0;
 		}
-	} else if ( 49 <= Argv[1][0] && Argv[1][0] <= 57) {
-		if (48 > Argv[1][1] || Argv[1][1] > 57) {
-			Month = (Argv[1][0] - '0');
-		}
-		else {
+	} else if ( 49 <= date[1][0] && date[1][0] <= 57) {
+		if (48 > date[1][1] || date[1][1] > 57) {
+			Month = (date[1][0] - '0');
+		} else {
 			std::cout << "Unknown";
-			return 2;
+			return 0;
 		}
 	} else {
 		std::cout << "Unknown";
-		return 2;
+		return 0;
 	}
+	
 
-	Year = (Argv[2][0]-'0') * 1000 + (Argv[2][1] - '0') * 100 + (Argv[2][2] - '0') * 10 + (Argv[2][3] - '0');
+	Year = (date[2][0]-'0') * 1000 + (date[2][1] - '0') * 100 + (date[2][2] - '0') * 10 + (date[2][3] - '0');
 
+	for (int f = 0; f < 3; ++f) {
+		delete[] date[f];
+	}
+	delete[] date;
+	
 	a = (14 - Month) / 12;
 	y = Year + 4800 - a;
 	m = Month + 12 * a - 3;
@@ -80,9 +99,9 @@ int main(int argc, char* argv[]) {
 
 	if (Day1 != Day || Month1 != Month || Year1 != Year) {
 		std::cout << "Unknown";
-		return 2;
+		return 0;
 	}
-
+	
 	a = (14 - Month) / 12;
 
 	y = Year - a;
@@ -120,7 +139,7 @@ int main(int argc, char* argv[]) {
 			d = (Day + y + y / 4 - y / 100 + y / 400 + 31 * m / 12) % 7;
 			if (d == 5) {
 				std::cout << i;
-				return 1;
+				return 0;
 			}
 		}
 	} else {
@@ -129,7 +148,7 @@ int main(int argc, char* argv[]) {
 			d = (Day + y + y / 4 - y / 100 + y / 400 + 31 * m / 12) % 7;
 			if (d == 5) {
 				std::cout << i;
-				return 1;
+				return 0;
 			}
 		}
 	}
